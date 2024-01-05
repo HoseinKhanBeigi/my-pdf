@@ -5,21 +5,17 @@ export default function PdfComponent() {
   const [pdfLink, setPdfLink] = useState(null);
   const [name, setName] = useState("name");
   const generatePDF = async () => {
-    const response = await fetch("/api/posts");
-    if (response.ok) {
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      setPdfLink(url);
-    }
-
-    // fetch("/api/posts")
-    //   .then((response) => response.json())
-    //   .then((data) => setData(data))
-    //   .catch((error) => console.error("Error fetching data:", error));
+    await fetch("/api/posts").then(() => {
+      fetch("/api/read").then((res) => {
+        res.json().then((an) => {
+          console.log(an);
+        });
+      });
+    });
   };
 
   useEffect(() => {
-    setName("jack");
+    // console.log(data);
   }, []);
   return (
     <>
